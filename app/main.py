@@ -1,3 +1,5 @@
+# Entry point aplikacji TravelPlan API
+
 from fastapi import FastAPI
 
 app = FastAPI()
