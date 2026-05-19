@@ -1,3 +1,7 @@
 fastapi[standard]
 uvicorn[standard]
 python-dotenv
+sqlalchemy
+asyncpg
+alembic
+pydantic-settings
