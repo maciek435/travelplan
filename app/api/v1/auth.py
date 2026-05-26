@@ -5,6 +5,7 @@ from app.models.user import User
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.base import get_db
 from sqlalchemy import select
+from app.core.deps import get_current_user
 
 
 router = APIRouter()
@@ -37,3 +38,7 @@ async def login_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     
     token = create_access_token({"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer"}
+
+@router.get("/me", response_model=UserResponse)
+async def get_me(current_user: User = Depends(get_current_user)):
+    return current_user

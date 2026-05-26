@@ -1,7 +1,11 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 from dotenv import load_dotenv
+from app.models.trip import Trip
 import os
 
 load_dotenv()
