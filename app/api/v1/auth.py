@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 from app.schemas.user import UserCreate, UserResponse, TokenResponse
 from app.core.security import hash_password, verify_password, create_access_token
 from app.models.user import User
@@ -23,9 +24,9 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     return new_user
 
 @router.post("/login", response_model=TokenResponse)
-async def login_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    email = user.email
-    password = user.password
+async def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
+    email = form_data.username
+    password = form_data.password
 
     result = await db.execute(select(User).where(User.email == email))
     user = result.scalar_one_or_none()

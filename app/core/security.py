@@ -30,7 +30,7 @@ def verify_token(token: str):
             raise HTTPException(status_code=401, detail="Nieprawidłowy token")
 
     except JWTError as e:
-        raise HTTPException(status_code=401, detail=e)
+        raise HTTPException(status_code=401, detail=str(e))
 
     return user_id 
 
