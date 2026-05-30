@@ -5,13 +5,15 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 from dotenv import load_dotenv
-from app.models.trip import Trip
+
 import os
 
 load_dotenv()
 
 from app.db.base import Base
 from app.models.user import User
+from app.models.trip import Trip
+from app.models.day_task import DayTask
 
 config = context.config
 
