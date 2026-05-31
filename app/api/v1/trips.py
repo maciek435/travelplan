@@ -6,6 +6,7 @@ from app.db.base import get_db
 from app.core.deps import get_current_user
 from app.models.user import User
 from sqlalchemy import select
+from app.services.weather import get_weather
 
 router = APIRouter()
 
@@ -66,3 +67,13 @@ async def delete_trip(id: int, current_user: User = Depends(get_current_user), d
     await db.commit()
 
     return {"messsage": "podróż usunięta"}
+
+@router.get("/{id}/weather")
+async def get_trip_weather(id: int, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Trip).where(Trip.owner_id == current_user.id, Trip.id == id))
+    trip = result.scalar_one_or_none()
+    if trip is None:
+        raise HTTPException(status_code=404, detail="Nie znaleziono podróży")
+    
+    return await get_weather(trip.destination)
+
