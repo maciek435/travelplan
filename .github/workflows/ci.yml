@@ -45,7 +45,7 @@ jobs:
 
       - name: Run migrations
         env:
-          DATABASE_URL: postgresql+psycopg2://travelplan:travelplan@localhost:5432/travelplan
+          DATABASE_URL: postgresql+asyncpg://travelplan:travelplan@localhost:5432/travelplan
         run: alembic upgrade head
       - name: Run tests
         env:
