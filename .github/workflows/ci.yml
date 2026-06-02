@@ -39,8 +39,14 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install "bcrypt==4.0.1"
 
+      - name: Run migrations
+        env:
+          DATABASE_URL: postgresql+psycopg2://travelplan:travelplan@localhost:5432/travelplan
+        run: alembic upgrade head
       - name: Run tests
         env:
           DATABASE_URL: postgresql+asyncpg://travelplan:travelplan@localhost:5432/travelplan
