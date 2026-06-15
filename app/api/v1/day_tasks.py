@@ -20,6 +20,7 @@ async def create_day_task(day_task: DayTaskCreate, db: AsyncSession = Depends(ge
     new_day_task = DayTask(
         trip_id = day_task.trip_id,
         date = day_task.date,
+        start_time = day_task.start_time,
         title = day_task.title,
         description = day_task.description,   
     )
@@ -49,6 +50,7 @@ async def update_day_task(id: int, day_task_data: DayTaskCreate, current_user: U
     
     day_task.date = day_task_data.date
     day_task.title = day_task_data.title
+    day_task.start_time = day_task_data.start_time
     day_task.description = day_task_data.description  
     
     await db.commit()
