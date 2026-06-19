@@ -7,6 +7,7 @@ class DayTaskCreate(BaseModel):
     start_time: time | None = None
     date: date
     trip_id: int
+    order: int = 0
 
 class DayTaskResponse(BaseModel):
     id: int
@@ -16,5 +17,6 @@ class DayTaskResponse(BaseModel):
     start_time: time | None
     created_at: datetime | None
     trip_id: int
+    order: int
 
     model_config = {"from_attributes": True}

@@ -7,8 +7,12 @@ from app.core.deps import get_current_user
 from app.models.user import User
 from sqlalchemy import select
 from app.models.trip import Trip
+from pydantic import BaseModel
 
 router = APIRouter()
+
+class OrderUpdate(BaseModel):
+    task_ids: list[int]
 
 @router.post("/", response_model=DayTaskResponse)
 async def create_day_task(day_task: DayTaskCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
@@ -69,3 +73,13 @@ async def delete_day_task(id: int, current_user: User = Depends(get_current_user
     await db.commit()
 
     return {"message": "task usunięty"}
+
+@router.put("/reorder/{trip_id}")
+async def reorder_task(trip_id: int, order: OrderUpdate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    for index, task_id in enumerate(order.task_ids):
+        result = await db.execute(select(DayTask).where(DayTask.id == task_id))
+        task = result.scalar_one_or_none()
+        if task:
+            task.order = index
+    await db.commit()
+    return {"message": "kolejność zaktualizowana"}

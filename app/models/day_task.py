@@ -15,3 +15,4 @@ class DayTask(Base):
     description: Mapped[str | None] = mapped_column(default=None)
     is_done: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
+    order: Mapped[int] = mapped_column(default=0)
