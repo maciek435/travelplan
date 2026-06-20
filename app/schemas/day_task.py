@@ -8,6 +8,9 @@ class DayTaskCreate(BaseModel):
     date: date
     trip_id: int
     order: int = 0
+    lat: float | None = None
+    lng: float | None = None
+    location_name: str | None = None
 
 class DayTaskResponse(BaseModel):
     id: int
@@ -18,5 +21,8 @@ class DayTaskResponse(BaseModel):
     created_at: datetime | None
     trip_id: int
     order: int
+    lat: float | None = None
+    lng: float | None = None
+    location_name: str | None = None
 
     model_config = {"from_attributes": True}

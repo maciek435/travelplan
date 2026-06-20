@@ -16,3 +16,6 @@ class DayTask(Base):
     is_done: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     order: Mapped[int] = mapped_column(default=0)
+    lat: Mapped[float | None] = mapped_column(default=None)
+    lng: Mapped[float | None] = mapped_column(default=None)
+    location_name: Mapped[str | None] = mapped_column(default=None)
