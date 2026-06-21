@@ -8,7 +8,7 @@ class DayTask(Base):
     __tablename__ = "day_task"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    trip_id: Mapped[int] = mapped_column(ForeignKey("trips.id"))
+    trip_id: Mapped[int] = mapped_column(ForeignKey("trips.id", ondelete="CASCADE"))
     date: Mapped[date]
     start_time: Mapped[time_type | None] = mapped_column(default=None)
     title: Mapped[str]
